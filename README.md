@@ -1,85 +1,55 @@
-from flask import Flask, render_template, request
-import joblib
-import numpy as np
+# 💳 Credit Card Fraud & Risk Prediction System
 
+An advanced, interactive Machine Learning web application designed to detect and predict credit card transaction risks or fraudulent activities based on financial behavior and customer data.
 
-app = Flask(__name__)
+---
 
+## 📋 Table of Contents
+* [About the Project](#-about-the-project)
+* [Key Features](#-key-features)
+* [Tech Stack & Libraries](#️-tech-stack--libraries)
+* [Project Structure](#-project-structure)
+* [Dataset Information](#-dataset-information)
+* [How to Run Locally](#️-how-to-run-locally)
+* [Usage Guide](#-usage-guide)
+* [Future Scope](#-future-scope)
+* [Contributing](#-contributing)
+* [License](#-license)
+* [Author](#-author)
 
-# Load trained model
-model = joblib.load("model/credit_risk_model.pkl")
+---
 
+## 🚀 About the Project
+With the rapid increase in digital transactions, detecting credit card fraud and assessing financial risk has become critical for financial institutions. This project leverages Machine Learning classification models to analyze transaction patterns and instantly flag potential risks or fraudulent behavior, providing a secure and reliable web interface.
 
-@app.route("/")
-def home():
-    return render_template("index.html")
+---
 
+## 🌟 Key Features
+* **Real-time Risk Evaluation:** Instant classification of transactions as safe or fraudulent based on numerical parameters.
+* **Machine Learning Powered:** Built using robust algorithms (like Logistic Regression, Random Forest, or Decision Trees) trained on financial datasets.
+* **User-Friendly Dashboard:** Clean, responsive, and professional web UI for seamless data entry and result viewing.
+* **High Security Focus:** Designed to help understand risk management pipelines in financial tech.
 
-@app.route("/predict", methods=["POST"])
-def predict():
+---
 
-    try:
-        # Get values from form
+## 🛠️ Tech Stack & Libraries
+* **Programming Language:** Python 🐍
+* **Web Framework:** Flask
+* **Machine Learning & Data Science:** Scikit-Learn, Pandas, NumPy
+* **Frontend:** HTML5, CSS3, JavaScript
+* **Development Tools:** Git, GitHub, VS Code
 
-        age = float(request.form["age"])
-        income = float(request.form["income"])
-        credit_limit = float(request.form["credit_limit"])
-        utilization = float(request.form["utilization"])
-        late_payments = float(request.form["late_payments"])
-        outstanding_balance = float(request.form["outstanding_balance"])
-        loan_amount = float(request.form["loan_amount"])
-        credit_history = float(request.form["credit_history"])
-        employment_years = float(request.form["employment_years"])
+---
 
-
-        # Create input array
-
-        features = np.array([[
-            age,
-            income,
-            credit_limit,
-            utilization,
-            late_payments,
-            outstanding_balance,
-            loan_amount,
-            credit_history,
-            employment_years
-        ]])
-
-
-        # Prediction
-
-        prediction = model.predict(features)[0]
-
-        probability = model.predict_proba(features)[0]
-
-        high_risk_probability = probability[1] * 100
-
-
-        if prediction == 1:
-            result = "HIGH RISK"
-            message = "The customer has a higher credit risk."
-        else:
-            result = "LOW RISK"
-            message = "The customer has a lower credit risk."
-
-
-        return render_template(
-            "index.html",
-            prediction=result,
-            message=message,
-            probability=round(high_risk_probability, 2)
-        )
-
-
-    except Exception as e:
-
-        return render_template(
-            "index.html",
-            prediction="Error",
-            message=str(e)
-        )
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
+## 📂 Project Structure
+```text
+Credit_Card_Risk_Prediction/
+│
+├── templates/              
+│   └── index.html          # Main HTML user interface for form inputs
+├── static/                 
+│   └── style.css           # Styling and design files
+├── app.py                  # Main Flask backend application server
+├── train_model.py          # Machine learning model training script
+├── model.pkl               # Serialized/saved Machine Learning model file
+└── requirements.txt        # Project dependencies list
