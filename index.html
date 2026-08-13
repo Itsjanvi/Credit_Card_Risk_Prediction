@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Credit Risk Prediction</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <h1>Credit Risk Prediction</h1>
+
+    <p class="subtitle">
+        Enter customer financial details to predict credit risk
+    </p>
+
+
+    <form action="/predict"
+          method="POST">
+
+
+        <div class="form-grid">
+
+
+            <!-- Age -->
+
+            <div class="form-group">
+
+                <label>Age</label>
+
+                <input
+                    type="number"
+                    name="Age"
+                    placeholder="Enter age"
+                    required>
+
+            </div>
+
+
+            <!-- Annual Income -->
+
+            <div class="form-group">
+
+                <label>Annual Income</label>
+
+                <input
+                    type="number"
+                    name="Annual_Income"
+                    placeholder="Enter annual income"
+                    required>
+
+            </div>
+
+
+            <!-- Credit Limit -->
+
+            <div class="form-group">
+
+                <label>Credit Limit</label>
+
+                <input
+                    type="number"
+                    name="Credit_Limit"
+                    placeholder="Enter credit limit"
+                    required>
+
+            </div>
+
+
+            <!-- Credit Utilization -->
+
+            <div class="form-group">
+
+                <label>Credit Utilization</label>
+
+                <input
+                    type="number"
+                    step="any"
+                    name="Credit_Utilization"
+                    placeholder="Enter credit utilization"
+                    required>
+
+            </div>
+
+
+            <!-- Late Payments -->
+
+            <div class="form-group">
+
+                <label>Late Payments</label>
+
+                <input
+                    type="number"
+                    name="Late_Payments"
+                    placeholder="Number of late payments"
+                    required>
+
+            </div>
+
+
+            <!-- Outstanding Balance -->
+
+            <div class="form-group">
+
+                <label>Outstanding Balance</label>
+
+                <input
+                    type="number"
+                    step="any"
+                    name="Outstanding_Balance"
+                    placeholder="Enter outstanding balance"
+                    required>
+
+            </div>
+
+
+            <!-- Loan Amount -->
+
+            <div class="form-group">
+
+                <label>Loan Amount</label>
+
+                <input
+                    type="number"
+                    step="any"
+                    name="Loan_Amount"
+                    placeholder="Enter loan amount"
+                    required>
+
+            </div>
+
+
+            <!-- Credit History -->
+
+            <div class="form-group">
+
+                <label>Credit History</label>
+
+                <input
+                    type="number"
+                    step="any"
+                    name="Credit_History"
+                    placeholder="Enter credit history"
+                    required>
+
+            </div>
+
+
+            <!-- Employment Years -->
+
+            <div class="form-group">
+
+                <label>Employment Years</label>
+
+                <input
+                    type="number"
+                    step="any"
+                    name="Employment_Years"
+                    placeholder="Enter employment years"
+                    required>
+
+            </div>
+
+
+        </div>
+
+
+        <button type="submit">
+            Predict Credit Risk
+        </button>
+
+
+    </form>
+
+
+    {% if prediction %}
+
+    <div class="result">
+
+        <h2>Prediction Result</h2>
+
+        <h3>{{ prediction }}</h3>
+
+        <p>
+            Prediction Confidence:
+            <strong>{{ confidence }}%</strong>
+        </p>
+
+    </div>
+
+    {% endif %}
+
+
+    {% if error %}
+
+    <div class="error">
+
+        <strong>Error:</strong>
+
+        {{ error }}
+
+    </div>
+
+    {% endif %}
+
+
+</div>
+
+</body>
+
+</html>
